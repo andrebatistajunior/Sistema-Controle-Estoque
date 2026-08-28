@@ -1,14 +1,30 @@
+import java.util.Scanner;
 public class Main {
+
+
     public static void main(String[] args){
         Produto produto1 = new Produto();
 
-        produto1.nome = "MousePad Gamer LongTech";
-        produto1.quantidade = 30;
-        produto1.preco = 89.99;
+        System.out.println("Informe o nome do produto: ");
 
-        System.out.println("Nome do Produto: " + produto1.nome);
-        System.out.println("Quantidade: " + produto1.quantidade);
-        System.out.println("Preço: R$ " + produto1.preco);
+        Scanner scanner = new Scanner(System.in);
+
+        String nome = scanner.nextLine();
+
+        produto1.nome = nome;
+
+        System.out.println("Informe a quantidade do produto: ");
+
+        int quantidade = scanner.nextInt();
+
+        produto1.quantidade = quantidade;
+
+        System.out.println(produto1.nome);
+        System.out.println(produto1.quantidade);
+
+        
+
+       
 
 
     }
