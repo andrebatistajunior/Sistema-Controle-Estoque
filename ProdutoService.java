@@ -5,6 +5,7 @@ public class ProdutoService {
     
 int escolha;
 
+
 Scanner scanner = new Scanner(System.in);
 
 ArrayList<Produto> produtos = new ArrayList<>();
@@ -14,7 +15,7 @@ public void cadastrarProduto(){
             do{
 
 
-        System.out.println("Escolha uma opção: 1- CADASTRAR PRODUTO  2- SAIR");
+        System.out.println("Escolha uma opção: \n1- CADASTRAR PRODUTO  \n2- PESQUISAR UM PRODUTO \n3- DESEJA VER TODOS OS PRODUTOS CADASTRADOS ? \n4- SAIR");
         
         escolha = scanner.nextInt();
 
@@ -22,7 +23,7 @@ public void cadastrarProduto(){
 
         switch(escolha){
 
-        case 1: 
+        case 1: {
 
         Produto produto = new Produto();
 
@@ -45,7 +46,7 @@ public void cadastrarProduto(){
             produto.estoque_baixo = false;
 
         }
-
+    
 
         System.out.print("Informe o preco do produto: ");
 
@@ -58,8 +59,50 @@ public void cadastrarProduto(){
         produtos.add(produto);
 
         break;
+    }
 
-        case 2:
+        case 2: {
+
+        System.out.println("Qual Produto deseja buscar ?: ");
+        String pesquisa = scanner.nextLine().toLowerCase();
+
+        ArrayList<Produto> encontrados = new ArrayList<>();
+
+        for(Produto produto : produtos){
+            if(produto.nome.toLowerCase().contains(pesquisa)){
+                encontrados.add(produto);
+                
+            }
+        }
+
+        for(Produto produto : encontrados){
+            System.out.println(produto.nome);
+
+        }
+
+        break;
+
+    }
+
+        case 3:
+
+        int i = 0;
+        
+
+           for( i = 0 ; i < produtos.size(); i++){
+            System.out.println("Produto " + (i + 1));
+            System.out.println(produtos.get(i).nome);
+            System.out.println(produtos.get(i).quantidade);
+            System.out.println(produtos.get(i).preco);
+            if(produtos.get(i).estoque_baixo == true){
+                System.out.println("Estoque baixo.");
+            }if(produtos.get(i).estoque_baixo == false){
+                System.out.println("Estoque Normal");
+            }
+        }
+        break;
+
+        case 4:
 
         escolha = 2;
 
@@ -68,7 +111,7 @@ public void cadastrarProduto(){
 
     }
 
-        } while(escolha != 2);
+        } while(escolha != 4);
 
 
 }
