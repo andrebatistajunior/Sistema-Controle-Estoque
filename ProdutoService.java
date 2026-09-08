@@ -8,14 +8,14 @@ int escolha;
 
 Scanner scanner = new Scanner(System.in);
 
-ArrayList<Produto> produtos = new ArrayList<>();
+public ArrayList<Produto> produtos = new ArrayList<>();
 
 public void cadastrarProduto(){
 
             do{
 
 
-        System.out.println("Escolha uma opção: \n1- CADASTRAR PRODUTO  \n2- PESQUISAR UM PRODUTO \n3- DESEJA VER TODOS OS PRODUTOS CADASTRADOS ? \n4- SAIR");
+        System.out.println("Escolha uma opção: \n1- CADASTRAR PRODUTO  \n2- PESQUISAR UM PRODUTO \n3- DESEJA VER TODOS OS PRODUTOS CADASTRADOS ? \n4- ADICIONAR AO ESTOQUE \n5- RETIRAR DO ESTOQUE \n6- SAIR");
         
         escolha = scanner.nextInt();
 
@@ -33,20 +33,7 @@ public void cadastrarProduto(){
 
         produto.nome = nome;
 
-        System.out.print("Informe a quantidade do produto disponível: ");
-
-        int quantidade = scanner.nextInt();
-    
-        produto.quantidade = quantidade;
-
-        if(produto.quantidade <= 20){
-            produto.estoque_baixo = true;
-
-        }if(produto.quantidade > 20){
-            produto.estoque_baixo = false;
-
-        }
-    
+        produto.cadastrarEstoque();
 
         System.out.print("Informe o preco do produto: ");
 
@@ -59,7 +46,8 @@ public void cadastrarProduto(){
         produtos.add(produto);
 
         break;
-    }
+
+     }
 
         case 2: {
 
@@ -90,13 +78,18 @@ public void cadastrarProduto(){
         
 
            for( i = 0 ; i < produtos.size(); i++){
+
+            Produto produto = produtos.get(i);
+
             System.out.println("Produto " + (i + 1));
-            System.out.println(produtos.get(i).nome);
-            System.out.println(produtos.get(i).quantidade);
-            System.out.println(produtos.get(i).preco);
-            if(produtos.get(i).estoque_baixo == true){
+            System.out.println(produto.nome);
+            System.out.println(produto.getQuantidade());
+            System.out.println(produto.preco);
+
+            if(produto.estoque_baixo == true){
                 System.out.println("Estoque baixo.");
-            }if(produtos.get(i).estoque_baixo == false){
+
+            }if(produto.estoque_baixo == false){
                 System.out.println("Estoque Normal");
             }
         }
@@ -104,17 +97,66 @@ public void cadastrarProduto(){
 
         case 4:
 
-        escolha = 2;
+        
+        System.out.println("Qual Produto você quer adicionar a mais no estoque ?: ");
+        
+        for (Produto produto : produtos){
+            System.out.println(produto.nome);
+        }
+
+        System.out.println("\n");
+
+        System.out.println("Produto: ");
+        String pesquisa = scanner.nextLine().toLowerCase();
+
+        for(Produto produto : produtos){
+            if(pesquisa.equals(produto.nome.toLowerCase())){
+                produto.adicionarEstoque();
+
+            }
+
+        }
+
+
+        
+        break;
+
+
+        case 5:
+        
+        System.out.println("Qual Produto você quer retirar do estoque ?: ");
+        
+        for (Produto produto : produtos){
+            System.out.println(produto.nome);
+        }
+
+        System.out.println("\n");
+
+        System.out.println("Produto: ");
+        pesquisa = scanner.nextLine().toLowerCase();
+
+        for(Produto produto : produtos){
+            if(pesquisa.equals(produto.nome.toLowerCase())){
+                produto.retirarEstoque();
+
+            }
+        }
+
+        break;
+
+        case 6:
 
         break;
 
 
+        }
+
+        } while(escolha != 6);
+
+
     }
-
-        } while(escolha != 4);
-
-
-}
 
     
 }
+
+
